@@ -2,11 +2,17 @@ package main
 
 import "fmt"
 
-func main() {
-	numbers := [6]int{3, 16, -2, 10, 23, 12}
-	for i, number := range numbers {
-		if number >= 10 && number <= 20 {
-			fmt.Println(i, number)
+func inRange(min float64, max float64, numbers ...float64) []float64 {
+	var result []float64
+	for _, number := range numbers {
+		if number >= min && number <= max {
+			result = append(result, number)
 		}
 	}
+	return result
+}
+
+func main() {
+	fmt.Println(inRange(1, 100, -12.5, 3.2, 0, 50, 103.5))
+	fmt.Println(inRange(-10, 10, 4.1, 12, -12, -5.2))
 }
