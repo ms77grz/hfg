@@ -1,28 +1,18 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	// var ranks map[string]int
-	// ranks = make(map[string]int)
-	ranks := make(map[string]int)
-	ranks["gold"] = 1
-	ranks["silver"] = 2
-	ranks["bronze"] = 3
-	fmt.Println(ranks["bronze"])
-	fmt.Println(ranks["gold"])
-
-	elements := make(map[string]string)
-	elements["H"] = "Hydrogen"
-	elements["Li"] = "Lithium"
-	fmt.Println(elements["Li"])
-	fmt.Println(elements["H"])
-
-	isPrime := make(map[int]bool)
-	isPrime[4] = false
-	isPrime[7] = true
-	fmt.Println(isPrime[4])
-	fmt.Println(isPrime[7])
+	var myStruct struct {
+		number float64
+		word   string
+		toggle bool
+	}
+	myStruct.number=3.14
+	myStruct.word="pie"
+	myStruct.toggle=true
+	fmt.Println(myStruct.number)
+	fmt.Println(myStruct.word)
+	fmt.Println(myStruct.toggle)
+	// fmt.Printf("%#v\n", myStruct)
 }
