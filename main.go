@@ -1,18 +1,56 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+	"log"
+)
+
+type Date struct {
+	Year  int
+	Month int
+	Day   int
+}
+
+func (d *Date) SetYear(year int) error {
+	if year < 1 {
+		return errors.New("invalid year")
+	}
+	d.Year = year
+	return nil
+}
+
+func (d *Date) SetMonth(month int) error {
+	if month < 1 || month > 12 {
+		return errors.New("invalid month")
+	}
+	d.Month = month
+	return nil
+}
+
+func (d *Date) SetDay(day int) error {
+	if day < 1 || day > 31 {
+		return errors.New("invalid day")
+	}
+	d.Day = day
+	return nil
+}
 
 func main() {
-	var myStruct struct {
-		number float64
-		word   string
-		toggle bool
+	date := Date{}
+	err := date.SetYear(2019)
+	if err != nil {
+		log.Fatal(err)
 	}
-	myStruct.number=3.14
-	myStruct.word="pie"
-	myStruct.toggle=true
-	fmt.Println(myStruct.number)
-	fmt.Println(myStruct.word)
-	fmt.Println(myStruct.toggle)
-	// fmt.Printf("%#v\n", myStruct)
+	fmt.Println(date.Year)
+	err = date.SetMonth(14)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(date.Month)
+	err = date.SetDay(31)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(date.Day)
 }
