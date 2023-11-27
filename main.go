@@ -2,30 +2,50 @@ package main
 
 import "fmt"
 
-type Appliance interface {
-	TurnOn()
+type Car string
+
+func (c Car) Accelerate() {
+	fmt.Println("Speeding up")
 }
 
-type Fan string
-
-func (f Fan) TurnOn() {
-	fmt.Println("Spinning")
+func (c Car) Brake() {
+	fmt.Println("Stopping")
 }
 
-type CoffeePot string
-
-func (c CoffeePot) TurnOn() {
-	fmt.Println("Powering Up")
+func (c Car) Steer(direction string) {
+	fmt.Println("Turning", direction)
 }
 
-func (c CoffeePot) Brew() {
-	fmt.Println("Heating Up")
+type Truck string
+
+func (t Truck) Accelerate() {
+	fmt.Println("Speeding up")
+}
+
+func (t Truck) Brake() {
+	fmt.Println("Stopping")
+}
+
+func (t Truck) Steer(direction string) {
+	fmt.Println("Turning", direction)
+}
+
+func (t Truck) LoadCargo(cargo string) {
+	fmt.Println("Loading", cargo)
+}
+
+type Vehicle interface {
+	Accelerate()
+	Brake()
+	Steer(string)
 }
 
 func main() {
-	var device Appliance
-	device = Fan("Windco Breeze")
-	device.TurnOn()
-	device = CoffeePot("LuxBrew")
-	device.TurnOn()
+	var vehicle Vehicle = Car("Toyota Yaris")
+	vehicle.Accelerate()
+	vehicle.Steer("left")
+
+	vehicle = Truck("Ford F180")
+	vehicle.Brake()
+	vehicle.Steer("right")
 }
