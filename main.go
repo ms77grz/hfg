@@ -1,56 +1,31 @@
 package main
 
-import (
-	"errors"
-	"fmt"
-	"log"
-)
+import "fmt"
 
-type Date struct {
-	Year  int
-	Month int
-	Day   int
+type Appliance interface {
+	TurnOn()
 }
 
-func (d *Date) SetYear(year int) error {
-	if year < 1 {
-		return errors.New("invalid year")
-	}
-	d.Year = year
-	return nil
+type Fan string
+
+func (f Fan) TurnOn() {
+	fmt.Println("Spinning")
 }
 
-func (d *Date) SetMonth(month int) error {
-	if month < 1 || month > 12 {
-		return errors.New("invalid month")
-	}
-	d.Month = month
-	return nil
+type CoffeePot string
+
+func (c CoffeePot) TurnOn() {
+	fmt.Println("Powering Up")
 }
 
-func (d *Date) SetDay(day int) error {
-	if day < 1 || day > 31 {
-		return errors.New("invalid day")
-	}
-	d.Day = day
-	return nil
+func (c CoffeePot) Brew() {
+	fmt.Println("Heating Up")
 }
 
 func main() {
-	date := Date{}
-	err := date.SetYear(2019)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(date.Year)
-	err = date.SetMonth(14)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(date.Month)
-	err = date.SetDay(31)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(date.Day)
+	var device Appliance
+	device = Fan("Windco Breeze")
+	device.TurnOn()
+	device = CoffeePot("LuxBrew")
+	device.TurnOn()
 }
