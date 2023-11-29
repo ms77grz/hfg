@@ -2,14 +2,28 @@ package main
 
 import "fmt"
 
-func count(start int, end int) {
-	fmt.Println(start)
-	if start < end {
-		count(start+1, end)
-	}
-	fmt.Printf("Returning from count(%d, %d) call\n", start,)
+func abc(channel chan string) {
+	channel <- "a"
+	channel <- "b"
+	channel <- "c"
+}
+
+func def(channel chan string) {
+	channel <- "d"
+	channel <- "e"
+	channel <- "f"
 }
 
 func main() {
-	count(1, 3)
+	channel1 := make(chan string)
+	channel2 := make(chan string)
+	go abc(channel1)
+	go def(channel2)
+	fmt.Print(<-channel1)
+	fmt.Print(<-channel2)
+	fmt.Print(<-channel1)
+	fmt.Print(<-channel2)
+	fmt.Print(<-channel1)
+	fmt.Print(<-channel2)
+	fmt.Println()
 }
