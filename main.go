@@ -1,29 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-func abc(channel chan string) {
-	channel <- "a"
-	channel <- "b"
-	channel <- "c"
-}
-
-func def(channel chan string) {
-	channel <- "d"
-	channel <- "e"
-	channel <- "f"
-}
+	"github.com/ms77grz/hfg/prose"
+)
 
 func main() {
-	channel1 := make(chan string)
-	channel2 := make(chan string)
-	go abc(channel1)
-	go def(channel2)
-	fmt.Print(<-channel1)
-	fmt.Print(<-channel2)
-	fmt.Print(<-channel1)
-	fmt.Print(<-channel2)
-	fmt.Print(<-channel1)
-	fmt.Print(<-channel2)
-	fmt.Println()
+	phrases := []string{"my parents", "a rodeo clown"}
+	fmt.Println("A photo of", prose.JoinWithCommas(phrases))
+	phrases = []string{"my parents", "a rodeo clown", "a prize bull"}
+	fmt.Println("A photo of", prose.JoinWithCommas(phrases))
+
+	phrases = []string{"my parents"}
+	fmt.Println("A photo of", prose.JoinWithCommas(phrases))
+
 }
