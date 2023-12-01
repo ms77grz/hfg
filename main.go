@@ -1,18 +1,31 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/ms77grz/hfg/prose"
+	"log"
+	"os"
+	"text/template"
 )
 
+func check(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func executeTemplate(text string, data any) {
+	tmpl, err := template.New("test").Parse(text)
+	check(err)
+	err = tmpl.Execute(os.Stdout, data)
+	check(err)
+}
+
+type Part struct {
+	Name  string
+	Count int
+}
+
 func main() {
-	phrases := []string{"my parents", "a rodeo clown"}
-	fmt.Println("A photo of", prose.JoinWithCommas(phrases))
-	phrases = []string{"my parents", "a rodeo clown", "a prize bull"}
-	fmt.Println("A photo of", prose.JoinWithCommas(phrases))
-
-	phrases = []string{"my parents"}
-	fmt.Println("A photo of", prose.JoinWithCommas(phrases))
-
+	templateText := "Name: {{.Name}}\nCount: {{.Count}}\n"
+	executeTemplate(templateText, Part{Name: "Fuses", Count: 5})
+	executeTemplate(templateText, Part{Name: "Cables", Count: 2})
 }
